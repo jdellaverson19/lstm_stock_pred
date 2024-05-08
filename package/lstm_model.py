@@ -92,6 +92,3 @@ def makeModel(trainStock, trainStartDate):
         scaler,
         rf".\models\{trainStock}.gz",
     )
-
-
-makeModel("AAPL", "2000-01-01")
