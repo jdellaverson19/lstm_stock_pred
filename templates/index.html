@@ -9,74 +9,49 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-
     <link rel="stylesheet" href="static/css/w3.css">
-    <link rel="stylesheet" type="text/css" href="static/css/style.css">
-
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-    <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
     <!-- Styles -->
     <style>
         body {
-            background-color: #30303d;
-            color: #fff;
+            background-color: #fff;
+            color: #30303d;
+            height: 100vh;
+            /* Full height of the viewport */
+            display: flex;
+            align-items: center;
+            /* Center vertically */
+            justify-content: center;
+            /* Center horizontally */
         }
 
-        #chartdiv {
-            width: 5%;
-            height: 100px;
+        .form-group {
+            margin-top: 20px;
+            /* Space above the form */
+        }
+
+        input[type="text"] {
+            width: 100%;
+            /* Full width of its parent */
+            margin-bottom: 10px;
+            /* Space below the input */
         }
     </style>
 </head>
-<section class="container">
-    <h2>Stock price predictor</h2>
 
-    <div>
-        <div class="row">
-
-            <div>
-                <form method="POST" action="/data" role="form" id="form">
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <h2>Stock price predictor</h2>
+                <form method="POST" action="/data" role="form">
                     <div class="form-group">
-                        <label class="sr-only">Enter a Stock Symbol</label>
-                        <input type="text" name="search" placeholder="Symbol: eg. aapl..." required />
+                        <input type="text" name="search" placeholder="Symbol: eg. aapl..." required>
                         <input class="w3-button w3-block w3-hover-blue-grey" type="submit" value="Submit">
                     </div>
                 </form>
             </div>
         </div>
     </div>
-</section>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        var ctx = document.getElementById('chartdiv').getContext('2d');
-        var chartData = JSON.parse('{{pred | tojson}}');  // Assuming pred contains the data for the chart
-        var chart = new Chart(ctx, {
-            type: 'line',  // Change according to your preference
-            data: {
-                labels: chartData.labels,
-                datasets: [{
-                    label: 'Stock Prices',
-                    data: chartData.data,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    });
-</script>
-
-
 </body>
 
 </html>

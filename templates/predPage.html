@@ -28,8 +28,8 @@
     <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
     <style>
         body {
-            background-color: #30303d;
-            color: #fff;
+            background-color: #fff;
+            color: #30303d;
         }
 
         #chartdiv {
@@ -40,34 +40,35 @@
 </head>
 
 <body>
-    <h3>{{pred}}</h3>
-    <div id="chartdiv"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <h2>Stock price predictor</h2>
+                <form method="POST" action="/data" role="form">
+                    <div class="form-group">
+                        <input type="text" name="search" placeholder="Symbol: eg. aapl..." required>
+                        <input class="w3-button w3-block w3-hover-blue-grey" type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center">
+                <h3 class="no-wrap">The predicted price of {{stock_name}} for tomorrow is: {{pred}}</h3>
+            </div>
+        </div>
+    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        var ctx = document.getElementById('chartdiv').getContext('2d');
-        var chartData = JSON.parse('{{pred | tojson}}');  // Assuming pred contains the data for the chart
-        var chart = new Chart(ctx, {
-            type: 'line',  // Change according to your preference
-            data: {
-                labels: chartData.labels,
-                datasets: [{
-                    label: 'Stock Prices',
-                    data: chartData.data,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    });
-</script>
+<!-- Existing HTML elements -->
+<img src="{{ image_path }}" alt="Stock Predictions">
+
 
 </html>
