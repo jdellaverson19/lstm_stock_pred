@@ -1,25 +1,23 @@
-from flask import Flask, request, render_template
-from package import lstm_model_pred, lstm_preds
+from flask import Flask, render_template, request, jsonify
+import json
+from package import lstm_preds  # Assuming this file contains your prediction logic
 
 app = Flask(__name__)
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
 def index():
-    #   lstm_model.makeModel(1, 2)
     return render_template("index.html")
 
 
 @app.route("/data", methods=["POST"])
 def data():
-    if request.method == "POST":
-        print(request)
-        symbol = request.form["search"]
-        print("the symbol is " + symbol)
-        pred = lstm_preds.getPrediction(symbol)
-        # pred = lstm_model_pred.doItAll(5, 3, symbol)
-        return render_template("predPage.html", pred=pred)
+    search = request.form["search"]
+    predictions = lstm_preds.getPrediction(
+        search
+    )  # Adjust this according to your prediction logic
+    return render_template("predPage.html", pred=json.dumps(predictions))
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

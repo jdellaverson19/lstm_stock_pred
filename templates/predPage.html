@@ -5,15 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
     <title>Stock Prediction</title>
-
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="static/css/style5.css">
-
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
         integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
@@ -29,7 +26,6 @@
     <script src="https://www.amcharts.com/lib/4/charts.js"></script>
     <script src="https://www.amcharts.com/lib/4/themes/dark.js"></script>
     <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
-
     <style>
         body {
             background-color: #30303d;
@@ -41,7 +37,37 @@
             height: 500px;
         }
     </style>
+</head>
 
-    <h3> {{pred}}</h3>
+<body>
+    <h3>{{pred}}</h3>
+    <div id="chartdiv"></div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        var ctx = document.getElementById('chartdiv').getContext('2d');
+        var chartData = JSON.parse('{{pred | tojson}}');  // Assuming pred contains the data for the chart
+        var chart = new Chart(ctx, {
+            type: 'line',  // Change according to your preference
+            data: {
+                labels: chartData.labels,
+                datasets: [{
+                    label: 'Stock Prices',
+                    data: chartData.data,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
 
 </html>

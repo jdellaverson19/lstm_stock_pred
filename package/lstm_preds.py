@@ -29,16 +29,13 @@ from datetime import datetime, timedelta
 
 
 def getPrediction(predictStock):
-    a = os.listdir(path="./package")
+    a = os.listdir(path="./models")
     predictStock = predictStock.upper()
+    model = keras.models.load_model(rf"models/model.keras")
+    scaler = joblib.load(rf"models/scaler.gz")
     if f"{predictStock}.keras" in a:
-        print("tis in there")
         scaler = joblib.load(rf"models/{predictStock}.gz")
         model = keras.models.load_model(rf"models/{predictStock}.keras")
-    else:
-        print("tis not")
-        scaler = joblib.load(rf"models/scaler.gz")
-        model = keras.models.load_model(rf"models/model.keras")
 
     # Now to do a specific prediction
     stock_quote = pdr.get_data_yahoo(
